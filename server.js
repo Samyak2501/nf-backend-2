@@ -26,7 +26,7 @@ if (FRONTEND_URL === '*') {
 const PORT = process.env.PORT || 3001;
 
 // --- ./yt-dlp/yt-dlp binary path (fallback to PATH) ---
-const YTDLP = process.env.YTDLP_PATH || './yt-dlp';
+const YTDLP = process.env.YTDLP_PATH || 'yt-dlp';
 
 // --- Top Songs Cache ---
 let topSongsCache = { data: null, timestamp: 0 };
