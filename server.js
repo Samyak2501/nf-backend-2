@@ -168,10 +168,11 @@ app.get('/stream', async (req, res) => {
 
   try {
     const { stdout: streamUrl } = await execFilePromise(YTDLP, [
-      '-f', 'best',
+      '-f', 'bestaudio/best',
       '-g',
       '--no-warnings',
       '--no-playlist',
+      '--extractor-args', 'youtube:player_client=android',
       url
     ], { timeout: 30000 });
 
