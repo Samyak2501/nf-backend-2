@@ -172,7 +172,8 @@ app.get('/stream', async (req, res) => {
       '-g',
       '--no-warnings',
       '--no-playlist',
-      '--extractor-args', 'youtube:player_client=android',
+      '--extractor-args', 'youtube:player_client=android,web_embedded',
+      '--force-ipv4',
       url
     ], { timeout: 30000 });
 
