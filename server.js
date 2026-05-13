@@ -188,6 +188,7 @@ app.get('/stream', async (req, res) => {
     const { stdout: streamUrl } = await execFilePromise(YTDLP, [
       ...ytArgs,
       '-g',
+      '-f', 'ba',
       '--no-warnings',
       '--no-playlist',
       url
