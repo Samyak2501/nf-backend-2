@@ -186,7 +186,7 @@ app.get('/stream', async (req, res) => {
 
   try {
     const { stdout: streamUrl } = await execFilePromise(YTDLP, [
-      '-f', 'bestaudio/best',
+      '-f', '(bestaudio)[protocol^=http]/(bestaudio)/best',
       '-g',
       '--no-warnings',
       '--no-playlist',
