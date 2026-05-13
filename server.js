@@ -38,9 +38,8 @@ const COOKIES_FILE = process.env.COOKIES_FILE || '';
 const cookieArgs = COOKIES_FILE ? ['--cookies', COOKIES_FILE] : [];
 
 // Extra args to help bypass YouTube bot detection
-// ios client reliably provides m4a audio-only streams; android as fallback
+// No --extractor-args: datacenter IPs get restricted format lists regardless of client
 const ytArgs = [
-  '--extractor-args', 'youtube:player_client=ios,android',
   '--force-ipv4',
   ...cookieArgs
 ];
@@ -187,10 +186,11 @@ app.get('/stream', async (req, res) => {
 
   try {
     const { stdout: streamUrl } = await execFilePromise(YTDLP, [
-      '-f', 'bestaudio/best',
+      '-f', '18/22/17/36/best',   // progressive mp4/3gp — always muxed, no ffmpeg needed
       '-g',
       '--no-warnings',
       '--no-playlist',
+      '--no-check-formats',
       ...ytArgs,
       url
     ], { timeout: 30000 });
@@ -219,9 +219,10 @@ app.get('/stream', async (req, res) => {
 
     try {
       const { stdout: fallbackUrl } = await execFilePromise(YTDLP, [
-        '-f', 'bestaudio/best',
+        '-f', '18/22/17/36/best',
         '-g',
         '--no-warnings',
+        '--no-check-formats',
         ...ytArgs,
         url
       ], { timeout: 30000 });
