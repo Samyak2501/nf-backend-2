@@ -37,9 +37,10 @@ const COOKIES_FILE = process.env.COOKIES_FILE || '';
 // Build cookie args for yt-dlp — injected into every call
 const cookieArgs = COOKIES_FILE ? ['--cookies', COOKIES_FILE] : [];
 
-// Extra args to help bypass YouTube bot detection even without cookies
+// Extra args to help bypass YouTube bot detection
+// ios client reliably provides m4a audio-only streams; android as fallback
 const ytArgs = [
-  '--extractor-args', 'youtube:player_client=android,web_embedded',
+  '--extractor-args', 'youtube:player_client=ios,android',
   '--force-ipv4',
   ...cookieArgs
 ];
@@ -186,7 +187,7 @@ app.get('/stream', async (req, res) => {
 
   try {
     const { stdout: streamUrl } = await execFilePromise(YTDLP, [
-      '-f', 'bestaudio[ext=m4a]/bestaudio[ext=webm]/bestaudio/best',
+      '-f', 'bestaudio/best',
       '-g',
       '--no-warnings',
       '--no-playlist',
@@ -218,7 +219,7 @@ app.get('/stream', async (req, res) => {
 
     try {
       const { stdout: fallbackUrl } = await execFilePromise(YTDLP, [
-        '-f', 'bestaudio[ext=m4a]/bestaudio[ext=webm]/bestaudio/best',
+        '-f', 'bestaudio/best',
         '-g',
         '--no-warnings',
         ...ytArgs,
