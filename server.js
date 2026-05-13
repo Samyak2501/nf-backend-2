@@ -186,7 +186,6 @@ app.get('/stream', async (req, res) => {
 
   try {
     const { stdout: streamUrl } = await execFilePromise(YTDLP, [
-      '-f', '18/22/17/36/best',   // progressive mp4/3gp — always muxed, no ffmpeg needed
       '-g',
       '--no-warnings',
       '--no-playlist',
@@ -219,7 +218,6 @@ app.get('/stream', async (req, res) => {
 
     try {
       const { stdout: fallbackUrl } = await execFilePromise(YTDLP, [
-        '-f', '18/22/17/36/best',
         '-g',
         '--no-warnings',
         '--no-check-formats',
@@ -237,7 +235,7 @@ app.get('/stream', async (req, res) => {
     } catch (fallbackError) {
       res.json({
         status: false,
-        error: 'Failed to get stream. Try updating ./yt-dlp/yt-dlp.'
+        error: 'Failed to get stream. Please try again later.'
       });
     }
   }
