@@ -40,6 +40,7 @@ const cookieArgs = COOKIES_FILE ? ['--cookies', COOKIES_FILE] : [];
 // Extra args to help bypass YouTube bot detection
 // No --extractor-args: datacenter IPs get restricted format lists regardless of client
 const ytArgs = [
+  '--extractor-args', 'youtube:player_client=tv_embedded',
   '--force-ipv4',
   ...cookieArgs
 ];
