@@ -186,11 +186,10 @@ app.get('/stream', async (req, res) => {
 
   try {
     const { stdout: streamUrl } = await execFilePromise(YTDLP, [
-      '-f', '(bestaudio)[protocol^=http]/(bestaudio)/best',
+      ...ytArgs,
       '-g',
       '--no-warnings',
       '--no-playlist',
-      ...ytArgs,
       url
     ], { timeout: 30000 });
 
