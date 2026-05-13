@@ -186,11 +186,11 @@ app.get('/stream', async (req, res) => {
 
   try {
     const { stdout: streamUrl } = await execFilePromise(YTDLP, [
-      ...ytArgs,
+      '-f', 'best',
       '-g',
-      '-f', 'ba',
       '--no-warnings',
       '--no-playlist',
+      ...ytArgs,
       url
     ], { timeout: 30000 });
 
